@@ -1,0 +1,30 @@
+pkgname=northstar
+pkgver=1.18.0
+pkgver_tf=2.0.11.0
+pkgrel=0
+pkgdesc="NorthstarCN binaries and mods"
+
+url="https://northstar.cool"
+license="MIT"
+
+arch="x86_64"
+source="https://github.com/R2NorthstarCN/R2NorthstarCN_Launcher_Dedicated/releases/download/v${pkgver}/v${pkgver}.zip"
+
+check() {
+	ls "$srcdir"
+	test -f "$srcdir/NorthstarLauncher.exe"
+	test -f "$srcdir/R2Northstar/mods/Northstar.CustomServers/mod/cfg/autoexec_ns_server.cfg"
+	test -f "$srcdir/R2Northstar/placeholder_playerdata.pdata"
+	test -d "$srcdir/R2Northstar/mods/Northstar.CustomServers/mod/maps/graphs"
+	test -d "$srcdir/R2Northstar/mods/Northstar.CustomServers/mod/maps/navmesh"
+	test -f "$srcdir/bin/x64_dedi/d3d11.dll"
+}
+
+package() {
+	rm "$srcdir"/*.zip
+	mkdir -p "$pkgdir/usr/lib/northstar"
+	cp -r "$srcdir/." "$pkgdir/usr/lib/northstar/"
+}
+sha512sums="
+8508da066c87a203d10eee88213ee8d1e213d5f85ecaeff4c5227dfa97d5c30ea7b5da35e729ade02356b731f1cc7494eb9bafa99aa7a8da7dd16f3200c23f50  v$pkgver.zip
+"
