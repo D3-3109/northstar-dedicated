@@ -36,6 +36,7 @@ build() {
 		x86_64) _win64=--enable-win64;;
 		x86) _no_pie="-no-pie";;
 	esac
+	export CROSSCFLAGS="${CROSSCFLAGS:--g -O2} -D__MSVCRT_VERSION__=0x700"
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
