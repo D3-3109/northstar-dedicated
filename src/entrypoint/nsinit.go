@@ -38,12 +38,11 @@ func main() {
 		os.Setenv(v, strings.ReplaceAll(os.Getenv(v), "{{hostname}}", hostname))
 	}
 
-	fmt.Println("Northstar Dedicated Server - Docker (hostname: " + hostname + ")")
+	fmt.Println("Northstar Dedicated Server (CN) - Docker (hostname: " + hostname + ")")
 	fmt.Println()
-	fmt.Println("    https://northstar.tf")
-	fmt.Println("    https://northstar.tf/discord")
-	fmt.Println("    https://github.com/R2Northstar/Northstar")
-	fmt.Println("    https://github.com/pg9182/northstar-dedicated")
+	fmt.Println("    https://northstar.cool")
+	fmt.Println("    https://github.com/R2NorthstarCN/R2NorthstarCN_Launcher_Dedicated")
+	fmt.Println("    https://github.com/D3-3109/northstar-dedicated")
 	fmt.Println()
 
 	fmt.Println("Merging files...")
@@ -110,7 +109,7 @@ func main() {
 			"ns_report_sp_server_to_masterserver": "0",
 			"ns_auth_allow_insecure":              "0",
 			"ns_erase_auth_info":                  "1",
-			"ns_masterserver_hostname":            "https://northstar.tf",
+			"ns_masterserver_hostname":            "https://nscn.wolf109909.top",
 			"everything_unlocked":                 "1",
 			"ns_should_return_to_lobby":           "1",
 			"net_chan_limit_mode":                 "2",
