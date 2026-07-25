@@ -1119,9 +1119,9 @@ int main(int argc, char **argv) {
     ns_log("starting wine");
 
     int wine_argv_n = 0;
-    char **wine_argv = alloca(sizeof(char **) * (argc + 2)); // args (replacing 0 with wine64) + -dedicated + terminator
+    char **wine_argv = alloca(sizeof(char **) * (argc + 2)); // args (replacing 0 with wine) + -dedicated + terminator
 
-    wine_argv[wine_argv_n++] = "wine64";
+    wine_argv[wine_argv_n++] = "wine";
     wine_argv[wine_argv_n++] = "NorthstarLauncher.exe";
     wine_argv[wine_argv_n++] = "-dedicated";
 
