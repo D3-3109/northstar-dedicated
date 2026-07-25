@@ -8,7 +8,7 @@ url="https://northstar.cool"
 license="MIT"
 
 arch="x86_64"
-source="https://github.com/R2NorthstarCN/R2NorthstarCN_Launcher_Dedicated/releases/download/v${pkgver}/v${pkgver}.zip"
+source="https://github.com/D3-3109/northstar-dedicated/releases/download/v${pkgver}/v${pkgver}.zip"
 
 check() {
 	ls "$srcdir"
@@ -26,5 +26,5 @@ package() {
 	cp -r "$srcdir/." "$pkgdir/usr/lib/northstar/"
 }
 sha512sums="
-8508da066c87a203d10eee88213ee8d1e213d5f85ecaeff4c5227dfa97d5c30ea7b5da35e729ade02356b731f1cc7494eb9bafa99aa7a8da7dd16f3200c23f50  v$pkgver.zip
+4C61B0151A059BF4C8BF12F76FFD5E87825A88151E569E1D4E4868414E85A37C84C55582E4D2D4BDC9980B9F8508A67E55875DA5124F6ED5849F4184744B0825  v$pkgver.zip
 "
