@@ -14,6 +14,7 @@ depends_dev="$pkgname perl"
 makedepends="autoconf automake bison flex gnutls-dev libxi-dev mingw-w64-gcc mingw-w64-binutils linux-headers"
 
 options="textrels !check"
+somask="ntdll.so win32u.so"
 source="https://dl.winehq.org/wine/source/11.x/wine-$pkgver.tar.xz
 	mingw-w64-ucrt.patch
 	"
