@@ -1,0 +1,122 @@
+From 1e348427994e5675ded3b1540a15a8af85cc8ebc Mon Sep 17 00:00:00 2001
+From: Kartavya Vashishtha <sendtokartavya@gmail.com>
+Date: Fri, 16 Feb 2024 19:14:22 -0500
+Subject: [PATCH] kernelbase: Implement CopyFile2().
+
+---
+ dlls/kernel32/kernel32.spec     |  1 +
+ dlls/kernelbase/file.c          | 50 +++++++++++++++++++++++++++++----
+ dlls/kernelbase/kernelbase.spec |  2 +-
+ 3 files changed, 46 insertions(+), 7 deletions(-)
+
+diff --git a/dlls/kernel32/kernel32.spec b/dlls/kernel32/kernel32.spec
+index 9d5dc076acbd..28a3f5543747 100644
+--- a/dlls/kernel32/kernel32.spec
++++ b/dlls/kernel32/kernel32.spec
+@@ -257,6 +257,7 @@
+ @ stdcall -import ConvertThreadToFiberEx(ptr long)
+ @ stdcall ConvertToGlobalHandle(long)
+ @ stdcall -import CopyContext(ptr long ptr)
++@ stdcall -import CopyFile2(wstr wstr ptr)
+ @ stdcall CopyFileA(str str long)
+ @ stdcall CopyFileExA (str str ptr ptr ptr long)
+ @ stdcall -import CopyFileExW(wstr wstr ptr ptr ptr long)
+diff --git a/dlls/kernelbase/file.c b/dlls/kernelbase/file.c
+index 2b59db43041e..f425df4263b0 100644
+--- a/dlls/kernelbase/file.c
++++ b/dlls/kernelbase/file.c
+@@ -487,13 +487,15 @@ BOOL WINAPI DECLSPEC_HOTPATCH AreFileApisANSI(void)
+     return !oem_file_apis;
+ }
+ 
+-
+-/***********************************************************************
+- *	CopyFileExW   (kernelbase.@)
++/****************************************************************************
++ *  copy_file
+  */
+-BOOL WINAPI CopyFileExW( const WCHAR *source, const WCHAR *dest, LPPROGRESS_ROUTINE progress,
+-                         void *param, BOOL *cancel_ptr, DWORD flags )
++static BOOL copy_file( const WCHAR *source, const WCHAR *dest, COPYFILE2_EXTENDED_PARAMETERS *params )
+ {
++    DWORD flags = params ? params->dwCopyFlags : 0;
++    BOOL *cancel_ptr = params ? params->pfCancel : NULL;
++    PCOPYFILE2_PROGRESS_ROUTINE progress = params ? params->pProgressRoutine : NULL;
++
+     static const int buffer_size = 65536;
+     HANDLE h1, h2;
+     FILE_BASIC_INFORMATION info;
+@@ -502,6 +504,11 @@ BOOL WINAPI CopyFileExW( const WCHAR *source, const WCHAR *dest, LPPROGRESS_ROUT
+     BOOL ret = FALSE;
+     char *buffer;
+ 
++    if (cancel_ptr)
++        FIXME("pfCancel is not supported\n");
++    if (progress)
++        FIXME("PCOPYFILE2_PROGRESS_ROUTINE is not supported\n");
++
+     if (!source || !dest)
+     {
+         SetLastError( ERROR_INVALID_PARAMETER );
+@@ -577,7 +584,7 @@ BOOL WINAPI CopyFileExW( const WCHAR *source, const WCHAR *dest, LPPROGRESS_ROUT
+             count -= res;
+         }
+     }
+-    ret =  TRUE;
++    ret = TRUE;
+ done:
+     /* Maintain the timestamp of source file to destination file and read-only attribute */
+     info.FileAttributes &= FILE_ATTRIBUTE_READONLY;
+@@ -589,6 +596,37 @@ BOOL WINAPI CopyFileExW( const WCHAR *source, const WCHAR *dest, LPPROGRESS_ROUT
+     return ret;
+ }
+ 
++/***********************************************************************
++ *	CopyFile2   (kernelbase.@)
++ */
++HRESULT WINAPI CopyFile2( const WCHAR *source, const WCHAR *dest, COPYFILE2_EXTENDED_PARAMETERS *params )
++{
++    return copy_file(source, dest, params) ? S_OK : HRESULT_FROM_WIN32(GetLastError());
++}
++
++
++/***********************************************************************
++ *	CopyFileExW   (kernelbase.@)
++ */
++BOOL WINAPI CopyFileExW( const WCHAR *source, const WCHAR *dest, LPPROGRESS_ROUTINE progress,
++                         void *param, BOOL *cancel_ptr, DWORD flags )
++{
++    COPYFILE2_EXTENDED_PARAMETERS params;
++
++    if (progress)
++        FIXME("LPPROGRESS_ROUTINE is not supported\n");
++    if (cancel_ptr)
++        FIXME("cancel_ptr is not supported\n");
++
++    params.dwSize = sizeof(params);
++    params.dwCopyFlags = flags;
++    params.pProgressRoutine = NULL;
++    params.pvCallbackContext = NULL;
++    params.pfCancel = NULL;
++
++    return copy_file( source, dest, &params );
++}
++
+ 
+ /**************************************************************************
+  *	CopyFileW   (kernelbase.@)
+diff --git a/dlls/kernelbase/kernelbase.spec b/dlls/kernelbase/kernelbase.spec
+index d3bd59a78e37..a133380a27a5 100644
+--- a/dlls/kernelbase/kernelbase.spec
++++ b/dlls/kernelbase/kernelbase.spec
+@@ -168,7 +168,7 @@
+ @ stdcall ConvertThreadToFiberEx(ptr long)
+ @ stdcall ConvertToAutoInheritPrivateObjectSecurity(ptr ptr ptr ptr long ptr)
+ @ stdcall CopyContext(ptr long ptr)
+-# @ stub CopyFile2
++@ stdcall CopyFile2(wstr wstr ptr)
+ @ stdcall CopyFileExW(wstr wstr ptr ptr ptr long)
+ @ stdcall CopyFileW(wstr wstr long)
+ @ stdcall -arch=x86_64 CopyMemoryNonTemporal(ptr ptr long) ntdll.RtlCopyMemoryNonTemporal
+-- 
+2.43.0
