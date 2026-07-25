@@ -30,6 +30,7 @@ build() {
 	esac
 	export CROSSCFLAGS="${CROSSCFLAGS:--g -O2} -D__MSVCRT_VERSION__=0x700"
 	# The Wine 7 component-pruning list must be regenerated after runtime tracing on Wine 11.
+	# First pass: unused interactive tools from the Wine 11 runtime trace.
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
@@ -81,7 +82,17 @@ build() {
 		--without-xshm \
 		--without-xxf86vm \
 		$_win64 \
-		--disable-tests
+		--disable-tests \
+		--disable-arp --disable-attrib --disable-cabarc --disable-cacls --disable-chcp_com --disable-clock --disable-control \
+		--disable-cscript --disable-dism --disable-dxdiag --disable-eject --disable-expand --disable-extrac32 --disable-fc \
+		--disable-find --disable-findstr --disable-fsutil --disable-hostname --disable-icacls --disable-icinfo --disable-iexplore \
+		--disable-ipconfig --disable-lodctr --disable-mshta --disable-msidb --disable-msiexec --disable-msinfo32 --disable-net \
+		--disable-netsh --disable-netstat --disable-ngen --disable-oleview --disable-ping --disable-powershell --disable-progman \
+		--disable-robocopy --disable-sc --disable-schtasks --disable-sdbinst --disable-secedit --disable-servicemodelreg --disable-shutdown \
+		--disable-spoolsv --disable-subst --disable-systeminfo --disable-taskmgr --disable-termsv --disable-uninstaller --disable-unlodctr \
+		--disable-view --disable-wevtutil --disable-where --disable-whoami --disable-winebrowser --disable-wineconsole --disable-winefile \
+		--disable-winemsibuilder --disable-winemine --disable-winmgmt --disable-winver --disable-wmplayer --disable-wordpad --disable-write \
+		--disable-wscript --disable-wuauserv --disable-wusa --disable-xcopy
 
 	make LDFLAGS="$LDFLAGS $_no_pie" \
 		tools/widl/widl \
