@@ -65,7 +65,7 @@ else
     wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'd3d10' /t REG_SZ /d '' /f
     wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'd3d11' /t REG_SZ /d 'native' /f
     wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'd3d12' /t REG_SZ /d '' /f
-    wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'wined3d' /t REG_SZ /d '' /f
+    wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'wined3d' /t REG_SZ /d 'builtin' /f
     wine reg add 'HKCU\Software\Wine\DllOverrides' /v 'winevulkan' /t REG_SZ /d '' /f
 fi
 
