@@ -16,6 +16,7 @@ makedepends="autoconf automake bison flex gnutls-dev libxi-dev mingw-w64-gcc min
 options="textrels !check"
 somask="ntdll.so win32u.so"
 source="https://dl.winehq.org/wine/source/11.x/wine-$pkgver.tar.xz
+	rpath.patch
 	mingw-w64-ucrt.patch
 	"
 
@@ -116,5 +117,6 @@ doc() {
 
 sha512sums="
 b42f91c0a73b46af07b1f8fb8aacd3dae38a8d62989fb28bd264bd3c5fd788dae19ef734b861d5b94094ba619222993f035aa50a083e59a2abf18a47cf5a5c3e  wine-11.14.tar.xz
+7c745409f9ab7adcabebefe2cee9a32633764356e078f231740a391b4dc86e8428276b2395a217e7db1a52e38752b73dc69808bd4a37787e134fe7627841c844  rpath.patch
 803b002e18365488fafd1fb8dabe52b6b6f6e779bb6c730e6bed43f568d4099fb98c71cfb644dd2bd072d3a9fb351f37db413a99fe52785ac3a7d20eef80a979  mingw-w64-ucrt.patch
 "
