@@ -143,7 +143,7 @@ build() {
 		--disable-sccbase --disable-schedsvc --disable-scrobj --disable-scrrun --disable-scsiport --disable-security --disable-sensapi \
 		--disable-serialui --disable-sfc --disable-sfc_os --disable-shdoclc --disable-shfolder --disable-slbcsp --disable-slc \
 		--disable-snmpapi --disable-softpub --disable-spoolss --disable-sppc --disable-srclient --disable-srvcli --disable-sspicli \
-		--disable-stdole2_tlb --disable-stdole32_tlb --disable-sti --disable-strmdll --disable-svrapi --disable-sxs --disable-t2embed \
+		--disable-stdole32_tlb --disable-sti --disable-strmdll --disable-svrapi --disable-sxs --disable-t2embed \
 		--disable-tapi32 --disable-taskschd --disable-tbs --disable-tdh --disable-traffic --disable-twain_32 --disable-uianimation \
 		--disable-uiautomationcore --disable-uiribbon --disable-unicows --disable-updspapi --disable-url --disable-usbd --disable-usp10 \
 		--disable-utildll --disable-vbscript --disable-vcomp --disable-vcomp100 --disable-vcomp110 --disable-vcomp120 --disable-vcomp140 \
