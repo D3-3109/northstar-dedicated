@@ -180,7 +180,7 @@ build() {
 		--disable-oledb32 --disable-pnputil --disable-qcap --disable-qedit --disable-regapi --disable-regasm --disable-regedit \
 		--disable-regini --disable-regsvcs --disable-regsvr32 --disable-resampledmo --disable-rometadata --disable-rtscom \
 		--disable-runas --disable-scardsvr --disable-scsiport_sys --disable-setx --disable-shdocvw --disable-sort --disable-srvsvc \
-		--disable-start --disable-taskkill --disable-tasklist --disable-tdi_sys --disable-threadpoolwinrt --disable-thumbcache \
+		--disable-taskkill --disable-tasklist --disable-tdi_sys --disable-threadpoolwinrt --disable-thumbcache \
 		--disable-timeout --disable-tiptsf --disable-twaindsm --disable-twinapi_appcore --disable-urlmon --disable-usbd_sys \
 		--disable-vccorlib140 --disable-vcruntime140 --disable-vcruntime140_1 --disable-vidreszr --disable-w32skrnl \
 		--disable-wbemdisp --disable-wbemprox --disable-win16 --disable-winbio --disable-winbrand --disable-windows_applicationmodel \
