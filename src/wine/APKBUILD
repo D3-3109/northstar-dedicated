@@ -96,8 +96,8 @@ build() {
 		--disable-acledit --disable-aclui --disable-adsldp --disable-adsldpc --disable-amsi --disable-amstream --disable-apphelp \
 		--disable-appwiz_cpl --disable-aspnet_regiis --disable-atl --disable-atl110 --disable-atl80 --disable-atl90 --disable-atlthunk \
 		--disable-atmlib --disable-authz --disable-avrt --disable-bluetoothapis --disable-browseui --disable-bthprops_cpl \
-		--disable-cabinet --disable-capi2032 --disable-cards --disable-cdosys --disable-clusapi --disable-comcat --disable-compstui \
-		--disable-comsvcs --disable-connect --disable-credui --disable-crtdll --disable-cryptdll --disable-cryptext --disable-cryptsp \
+		--disable-capi2032 --disable-cards --disable-cdosys --disable-clusapi --disable-comcat \
+		--disable-comsvcs --disable-connect --disable-credui --disable-crtdll --disable-cryptdll --disable-cryptext \
 		--disable-ctapi32 --disable-ctl3d32 --disable-d2d1 --disable-d3d10 --disable-d3d10_1 --disable-d3d10core --disable-d3d11 \
 		--disable-d3d12 --disable-d3d8 --disable-d3d8thk --disable-d3d9 --disable-d3dcompiler_33 --disable-d3dcompiler_34 \
 		--disable-d3dcompiler_35 --disable-d3dcompiler_36 --disable-d3dcompiler_37 --disable-d3dcompiler_38 --disable-d3dcompiler_39 \
@@ -108,15 +108,15 @@ build() {
 		--disable-d3dx9_27 --disable-d3dx9_28 --disable-d3dx9_29 --disable-d3dx9_30 --disable-d3dx9_31 --disable-d3dx9_32 \
 		--disable-d3dx9_33 --disable-d3dx9_34 --disable-d3dx9_35 --disable-d3dx9_36 --disable-d3dx9_37 --disable-d3dx9_38 \
 		--disable-d3dx9_39 --disable-d3dx9_40 --disable-d3dx9_41 --disable-d3dx9_42 --disable-d3dx9_43 --disable-d3dxof --disable-davclnt \
-		--disable-dbgeng --disable-dciman32 --disable-dcomp --disable-ddraw --disable-ddrawex --disable-dhcpcsvc --disable-dhcpcsvc6 \
-		--disable-dhtmled_ocx --disable-dinput --disable-dinput8 --disable-directmanipulation --disable-dispex --disable-dmband \
+		--disable-dbgeng --disable-dciman32 --disable-dcomp --disable-ddraw --disable-ddrawex --disable-dhcpcsvc6 \
+		--disable-dhtmled_ocx --disable-dinput --disable-directmanipulation --disable-dispex --disable-dmband \
 		--disable-dmcompos --disable-dmime --disable-dmloader --disable-dmscript --disable-dmstyle --disable-dmsynth --disable-dmusic \
 		--disable-dmusic32 --disable-dplay --disable-dplaysvr --disable-dplayx --disable-dpnaddr --disable-dpnet --disable-dpnhpast \
 		--disable-dpnhupnp --disable-dpnlobby --disable-dpnsvr --disable-dpvoice --disable-dpvsetup --disable-dpwsockx --disable-drmclien \
 		--disable-dsdmo --disable-dsquery --disable-dssenh --disable-dsuiext --disable-dswave --disable-dwrite --disable-dx8vb \
 		--disable-dxdiagn --disable-dxgi --disable-dxtrans --disable-dxva2 --disable-esent --disable-evr --disable-faultrep \
 		--disable-feclient --disable-fltlib --disable-fntcache --disable-fontsub --disable-fusion --disable-fwpuclnt --disable-gameux \
-		--disable-gamingtcui --disable-glu32 --disable-gphoto2_ds --disable-gpkcsp --disable-hal --disable-hlink --disable-hnetcfg \
+		--disable-gamingtcui --disable-gphoto2_ds --disable-gpkcsp --disable-hlink --disable-hnetcfg \
 		--disable-iccvid --disable-icmp --disable-ieframe --disable-ieproxy --disable-inetcomm --disable-inetcpl_cpl --disable-inetmib1 \
 		--disable-infosoft --disable-initpki --disable-inkobj --disable-inseng --disable-iprop --disable-irprops_cpl --disable-itircl \
 		--disable-itss --disable-joy_cpl --disable-jscript --disable-jsproxy --disable-ksproxy_ax --disable-ksuser --disable-ktmw32 \
@@ -126,15 +126,15 @@ build() {
 		--disable-midimap --disable-mmcndmgr --disable-mp3dmod --disable-msado15 --disable-msadp32 --disable-msasn1 --disable-mscat32 \
 		--disable-mscms --disable-mscoree --disable-mscorwks --disable-msctfmonitor --disable-msctfp --disable-msdaps --disable-msdasql \
 		--disable-msdelta --disable-msdrm --disable-msftedit --disable-mshtml --disable-mshtml_tlb --disable-msi --disable-msident \
-		--disable-msimg32 --disable-msimsg --disable-msimtf --disable-msisys_ocx --disable-msls31 --disable-msnet32 --disable-mspatcha \
+		--disable-msimsg --disable-msimtf --disable-msisys_ocx --disable-msls31 --disable-msnet32 --disable-mspatcha \
 		--disable-msports --disable-msrle32 --disable-msscript_ocx --disable-mssign32 --disable-mssip32 --disable-mstask --disable-msvcirt \
 		--disable-msvcm80 --disable-msvcm90 --disable-msvcp_win --disable-msvcp100 --disable-msvcp120 --disable-msvcp120_app \
 		--disable-msvcp60 --disable-msvcp70 --disable-msvcp71 --disable-msvcp80 --disable-msvcp90 --disable-msvcr100 --disable-msvcr120 \
 		--disable-msvcr120_app --disable-msvcr70 --disable-msvcr71 --disable-msvcr80 --disable-msvcr90 --disable-msvidc32 \
-		--disable-mswsock --disable-msxml --disable-msxml2 --disable-msxml3 --disable-msxml4 --disable-msxml6 --disable-mtxdm \
+		--disable-msxml --disable-msxml2 --disable-msxml3 --disable-msxml4 --disable-msxml6 --disable-mtxdm \
 		--disable-nddeapi --disable-netcfgx --disable-netprofm --disable-ninput --disable-notepad --disable-npmshtml --disable-npptools \
 		--disable-ntdsapi --disable-ntprint --disable-objsel --disable-odbc32 --disable-odbcbcp --disable-odbccp32 --disable-odbccu32 \
-		--disable-oleacc --disable-olecli32 --disable-oledlg --disable-olepro32 --disable-olesvr32 --disable-olethk32 \
+		--disable-olecli32 --disable-oledlg --disable-olepro32 --disable-olesvr32 --disable-olethk32 \
 		--disable-opcservices --disable-opencl --disable-packager --disable-pdh --disable-photometadatahandler --disable-pidgen \
 		--disable-powrprof --disable-presentationfontcache --disable-printui --disable-prntvpt --disable-pstorec --disable-pwrshplugin \
 		--disable-qasf --disable-qdvd --disable-qmgr --disable-qmgrprxy --disable-quartz --disable-query --disable-qwave \
@@ -152,7 +152,7 @@ build() {
 		--disable-winealsa_drv --disable-wineandroid_drv --disable-winecoreaudio_drv --disable-winedbg --disable-winegstreamer \
 		--disable-winemac_drv --disable-winemapi --disable-wineoss_drv --disable-wineps_drv --disable-winepulse_drv --disable-winetest \
 		--disable-wineusb_sys --disable-wing32 --disable-winhlp32 --disable-winhttp --disable-winnls32 --disable-winscard \
-		--disable-winspool_drv --disable-winsta --disable-wintab32 --disable-winusb --disable-wlanapi --disable-wlanui --disable-wmasf \
+		--disable-winsta --disable-wintab32 --disable-winusb --disable-wlanapi --disable-wlanui --disable-wmasf \
 		--disable-wmi --disable-wmp --disable-wmphoto --disable-wmvcore --disable-wnaspi32 --disable-wpc --disable-wpcap --disable-wsdapi \
 		--disable-wshom_ocx --disable-wsnmp32 --disable-wtsapi32 --disable-wuapi --disable-wuaueng --disable-x3daudio1_0 \
 		--disable-x3daudio1_1 --disable-x3daudio1_2 --disable-x3daudio1_3 --disable-x3daudio1_4 --disable-x3daudio1_5 \
@@ -163,16 +163,16 @@ build() {
 		--disable-xaudio2_2 --disable-xaudio2_3 --disable-xaudio2_4 --disable-xaudio2_5 --disable-xaudio2_6 --disable-xaudio2_7 \
 		--disable-xaudio2_8 --disable-xaudio2_9 --disable-xinput1_1 --disable-xinput1_2 --disable-xml2 --disable-xmllite --disable-xolehlp \
 		--disable-xpsprint --disable-xpssvcs --disable-xslt \
-		--disable-activeds --disable-activeds_tlb --disable-advpack --disable-aero_msstyles --disable-appxdeploymentclient \
+		--disable-activeds --disable-activeds_tlb --disable-aero_msstyles --disable-appxdeploymentclient \
 		--disable-atl100 --disable-avicap32 --disable-bcp47langs --disable-certutil --disable-chakra --disable-cldapi --disable-cmd \
-		--disable-colorcnv --disable-concrt140 --disable-coremessaging --disable-cryptdlg --disable-cryptowinrt --disable-cryptui \
+		--disable-colorcnv --disable-concrt140 --disable-coremessaging --disable-cryptdlg --disable-cryptowinrt \
 		--disable-cryptxml --disable-d3d12core --disable-dataexchange --disable-desk_cpl --disable-devenum --disable-diasymreader \
 		--disable-dllhost --disable-dsrole --disable-dwmapi --disable-dxcore --disable-explorerframe --disable-fltmgr_sys \
 		--disable-gameinput --disable-geolocation --disable-graphicscapture --disable-hh --disable-hhctrl_ocx --disable-hrtfapo \
 		--disable-http_sys --disable-httpapi --disable-hvsimanagementapi --disable-ia2comproxy --disable-icmui --disable-icu \
 		--disable-icuin --disable-icuuc --disable-imaadp32_acm --disable-ir50_32 --disable-iyuv_32 --disable-klist \
 		--disable-l3codeca_acm --disable-l3codecx_ax --disable-magnification --disable-makecab --disable-mfasfsrcsnk \
-		--disable-mfh264enc --disable-mfmp4srcsnk --disable-mfsrcsnk --disable-mlang --disable-mofcomp --disable-mouhid_sys \
+		--disable-mfh264enc --disable-mfmp4srcsnk --disable-mfsrcsnk --disable-mofcomp --disable-mouhid_sys \
 		--disable-mprapi --disable-msacm32_drv --disable-msadp32_acm --disable-msauddecmft --disable-msdmo --disable-msg711_acm \
 		--disable-msgsm32_acm --disable-msisip --disable-msmpeg2vdec --disable-msttsengine --disable-msvcp140 --disable-msvcp140_1 \
 		--disable-msvcp140_2 --disable-msvcp140_atomic_wait --disable-msvcp140_codecvt_ids --disable-msvcrt20 --disable-msvcrt40 \
@@ -181,7 +181,7 @@ build() {
 		--disable-regini --disable-regsvcs --disable-regsvr32 --disable-resampledmo --disable-rometadata --disable-rtscom \
 		--disable-runas --disable-scardsvr --disable-scsiport_sys --disable-setx --disable-shdocvw --disable-sort --disable-srvsvc \
 		--disable-taskkill --disable-tasklist --disable-tdi_sys --disable-threadpoolwinrt --disable-thumbcache \
-		--disable-timeout --disable-tiptsf --disable-twaindsm --disable-twinapi_appcore --disable-urlmon --disable-usbd_sys \
+		--disable-timeout --disable-tiptsf --disable-twaindsm --disable-twinapi_appcore --disable-usbd_sys \
 		--disable-vccorlib140 --disable-vcruntime140 --disable-vcruntime140_1 --disable-vidreszr --disable-w32skrnl \
 		--disable-wbemdisp --disable-wbemprox --disable-win16 --disable-winbio --disable-winbrand --disable-windows_applicationmodel \
 		--disable-windows_devices_bluetooth --disable-windows_devices_enumeration --disable-windows_devices_radios \
@@ -194,7 +194,7 @@ build() {
 		--disable-windows_system_profile_systemid --disable-windows_system_profile_systemmanufacturers --disable-windows_ui \
 		--disable-windows_ui_core_textinput --disable-windows_ui_xaml --disable-windows_web --disable-windowscodecsext \
 		--disable-winecfg --disable-winedmo --disable-winepath --disable-winevdm --disable-winevulkan --disable-winewayland_drv \
-		--disable-winexinput_sys --disable-winprint --disable-winsqlite3 --disable-wintypes --disable-wkscli --disable-wldp \
+		--disable-winexinput_sys --disable-winprint --disable-winsqlite3 --disable-wintypes --disable-wldp \
 		--disable-wmadmod --disable-wmic --disable-wmilib_sys --disable-wminet_utils --disable-wmiutils --disable-wmvdecod \
 		--disable-wofutil --disable-wow32 --disable-xinput1_3 --disable-xinput9_1_0 --disable-xinputuap --disable-xtajit64
 
