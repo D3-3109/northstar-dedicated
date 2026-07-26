@@ -162,7 +162,41 @@ build() {
 		--disable-xapofx1_2 --disable-xapofx1_3 --disable-xapofx1_4 --disable-xapofx1_5 --disable-xaudio2_0 --disable-xaudio2_1 \
 		--disable-xaudio2_2 --disable-xaudio2_3 --disable-xaudio2_4 --disable-xaudio2_5 --disable-xaudio2_6 --disable-xaudio2_7 \
 		--disable-xaudio2_8 --disable-xaudio2_9 --disable-xinput1_1 --disable-xinput1_2 --disable-xml2 --disable-xmllite --disable-xolehlp \
-		--disable-xpsprint --disable-xpssvcs --disable-xslt
+		--disable-xpsprint --disable-xpssvcs --disable-xslt \
+		--disable-activeds --disable-activeds_tlb --disable-advpack --disable-aero_msstyles --disable-appxdeploymentclient \
+		--disable-atl100 --disable-avicap32 --disable-bcp47langs --disable-certutil --disable-chakra --disable-cldapi --disable-cmd \
+		--disable-colorcnv --disable-concrt140 --disable-coremessaging --disable-cryptdlg --disable-cryptowinrt --disable-cryptui \
+		--disable-cryptxml --disable-d3d12core --disable-dataexchange --disable-desk_cpl --disable-devenum --disable-diasymreader \
+		--disable-dllhost --disable-dsrole --disable-dwmapi --disable-dxcore --disable-explorerframe --disable-fltmgr_sys \
+		--disable-gameinput --disable-geolocation --disable-graphicscapture --disable-hh --disable-hhctrl_ocx --disable-hrtfapo \
+		--disable-http_sys --disable-httpapi --disable-hvsimanagementapi --disable-ia2comproxy --disable-icmui --disable-icu \
+		--disable-icuin --disable-icuuc --disable-imaadp32_acm --disable-ir50_32 --disable-iyuv_32 --disable-klist \
+		--disable-l3codeca_acm --disable-l3codecx_ax --disable-magnification --disable-makecab --disable-mfasfsrcsnk \
+		--disable-mfh264enc --disable-mfmp4srcsnk --disable-mfsrcsnk --disable-mlang --disable-mofcomp --disable-mouhid_sys \
+		--disable-mprapi --disable-msacm32_drv --disable-msadp32_acm --disable-msauddecmft --disable-msdmo --disable-msg711_acm \
+		--disable-msgsm32_acm --disable-msisip --disable-msmpeg2vdec --disable-msttsengine --disable-msvcp140 --disable-msvcp140_1 \
+		--disable-msvcp140_2 --disable-msvcp140_atomic_wait --disable-msvcp140_codecvt_ids --disable-msvcrt20 --disable-msvcrt40 \
+		--disable-msvcrtd --disable-msvdsp --disable-msvproc --disable-ndfapi --disable-netio_sys --disable-newdev --disable-odbcad32 \
+		--disable-oledb32 --disable-pnputil --disable-qcap --disable-qedit --disable-regapi --disable-regasm --disable-regedit \
+		--disable-regini --disable-regsvcs --disable-regsvr32 --disable-resampledmo --disable-rometadata --disable-rtscom \
+		--disable-runas --disable-scardsvr --disable-scsiport_sys --disable-setx --disable-shdocvw --disable-sort --disable-srvsvc \
+		--disable-start --disable-taskkill --disable-tasklist --disable-tdi_sys --disable-threadpoolwinrt --disable-thumbcache \
+		--disable-timeout --disable-tiptsf --disable-twaindsm --disable-twinapi_appcore --disable-urlmon --disable-usbd_sys \
+		--disable-vccorlib140 --disable-vcruntime140 --disable-vcruntime140_1 --disable-vidreszr --disable-w32skrnl \
+		--disable-wbemdisp --disable-wbemprox --disable-win16 --disable-winbio --disable-winbrand --disable-windows_applicationmodel \
+		--disable-windows_devices_bluetooth --disable-windows_devices_enumeration --disable-windows_devices_radios \
+		--disable-windows_devices_usb --disable-windows_gaming_input --disable-windows_gaming_ui_gamebar --disable-windows_globalization \
+		--disable-windows_graphics --disable-windows_media --disable-windows_media_devices --disable-windows_media_mediacontrol \
+		--disable-windows_media_playback_backgroundmediaplayer --disable-windows_media_playback_mediaplayer --disable-windows_media_speech \
+		--disable-windows_networking --disable-windows_networking_connectivity --disable-windows_networking_hostname \
+		--disable-windows_perception_stub --disable-windows_security_authentication_onlineid \
+		--disable-windows_security_credentials_ui_userconsentverifier --disable-windows_storage --disable-windows_storage_applicationdata \
+		--disable-windows_system_profile_systemid --disable-windows_system_profile_systemmanufacturers --disable-windows_ui \
+		--disable-windows_ui_core_textinput --disable-windows_ui_xaml --disable-windows_web --disable-windowscodecsext \
+		--disable-winecfg --disable-winedmo --disable-winepath --disable-winevdm --disable-winevulkan --disable-winewayland_drv \
+		--disable-winexinput_sys --disable-winprint --disable-winsqlite3 --disable-wintypes --disable-wkscli --disable-wldp \
+		--disable-wmadmod --disable-wmic --disable-wmilib_sys --disable-wminet_utils --disable-wmiutils --disable-wmvdecod \
+		--disable-wofutil --disable-wow32 --disable-xinput1_3 --disable-xinput9_1_0 --disable-xinputuap --disable-xtajit64
 
 	make LDFLAGS="$LDFLAGS $_no_pie" \
 		tools/widl/widl \
