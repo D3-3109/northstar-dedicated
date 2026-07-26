@@ -106,6 +106,12 @@ build() {
 
 package() {
 	make DESTDIR="$pkgdir" install
+
+	find "$pkgdir"/usr/lib/wine/x86_64-windows -type f \
+		\( -name '*.acm' -o -name '*.ax' -o -name '*.com' -o -name '*.cpl' \
+		-o -name '*.dll' -o -name '*.drv' -o -name '*.ds' -o -name '*.exe' \
+		-o -name '*.msstyles' -o -name '*.ocx' -o -name '*.sys' \) \
+		-exec x86_64-w64-mingw32-strip --strip-unneeded {} +
 }
 
 dev() {
