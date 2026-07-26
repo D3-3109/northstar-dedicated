@@ -211,6 +211,10 @@ build() {
 package() {
 	make DESTDIR="$pkgdir" install
 
+	rm -f "$pkgdir"/usr/share/wine/nls/icudtl.dat
+	find "$pkgdir"/usr/share/wine/nls -type f -name 'c_*.nls' \
+		! -name 'c_437.nls' ! -name 'c_1252.nls' ! -name 'c_20127.nls' -delete
+
 	find "$pkgdir"/usr/lib/wine/x86_64-windows -type f \
 		\( -name '*.acm' -o -name '*.ax' -o -name '*.com' -o -name '*.cpl' \
 		-o -name '*.dll' -o -name '*.drv' -o -name '*.ds' -o -name '*.exe' \
