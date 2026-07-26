@@ -176,7 +176,7 @@ build() {
 		--disable-mprapi --disable-msacm32_drv --disable-msadp32_acm --disable-msauddecmft --disable-msdmo --disable-msg711_acm \
 		--disable-msgsm32_acm --disable-msisip --disable-msmpeg2vdec --disable-msttsengine --disable-msvcp140 --disable-msvcp140_1 \
 		--disable-msvcp140_2 --disable-msvcp140_atomic_wait --disable-msvcp140_codecvt_ids --disable-msvcrt20 --disable-msvcrt40 \
-		--disable-msvcrtd --disable-msvdsp --disable-msvproc --disable-ndfapi --disable-netio_sys --disable-newdev --disable-odbcad32 \
+		--disable-msvcrtd --disable-msvdsp --disable-msvproc --disable-ndfapi --disable-netio_sys --disable-odbcad32 \
 		--disable-oledb32 --disable-pnputil --disable-qcap --disable-qedit --disable-regapi --disable-regasm --disable-regedit \
 		--disable-regini --disable-regsvcs --disable-regsvr32 --disable-resampledmo --disable-rometadata --disable-rtscom \
 		--disable-runas --disable-scardsvr --disable-scsiport_sys --disable-setx --disable-shdocvw --disable-sort --disable-srvsvc \
