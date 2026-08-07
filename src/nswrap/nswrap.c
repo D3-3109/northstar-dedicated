@@ -779,9 +779,13 @@ static int ns_ioproc_title_epoll_check(struct ns_ioproc *p, struct epoll_event e
 }
 
 static const char *ns_ioproc_title_epoll_process(struct ns_ioproc *p) {
-    if (read(p->title.fd_pipe_title_r, p->title.buf, sizeof(p->title.buf)) == -1) {
+    ssize_t n = read(p->title.fd_pipe_title_r, p->title.buf, sizeof(p->title.buf) - 1);
+    if (n == -1) {
         return NULL;
     }
+    // the writer does not send a terminator; NUL-terminate so the leftover
+    // bytes from a previous title can never leak past the buffer into regexec
+    p->title.buf[n] = '\0';
     return p->title.buf;
 }
 
@@ -906,7 +910,7 @@ int main(int argc, char **argv) {
     // init setproctitle and attempt to ensure there is a placeholder arg consisting of spaces
     for (const char *x = argv[argc - 1]; *x; x++) {
         if (*x != ' ') {
-            char **nargv = alloca(argc + 2*sizeof(char*));
+            char **nargv = alloca((argc + 2) * sizeof(char *));
             for (int i = 0; i < argc; i++) {
                 nargv[i] = argv[i];
             }
@@ -1331,7 +1335,8 @@ int main(int argc, char **argv) {
             } else {
                 ns_log("error: exec '%s' failed: %s", wine_argv[0], strerror(n));
             }
-            return 1;
+            // match the 127 exit code reported by the CLD_EXITED/127 cleanup path
+            return 127;
         }
         ns_log("error: process events: unhandled fd %d", evt.data.fd);
         goto cleanup;
@@ -1361,19 +1366,23 @@ cleanup:
             }, NULL);
         }
     }
+    int exit_code = 1; // error unless we learn the game's real status below
     if (siginfo.si_pid == 0) {
         // this should never happen
         ns_log("error: failed to get northstar exit status: did not exit even after killed");
     } else if (siginfo.si_code == CLD_KILLED) {
         ns_log("northstar killed by signal %d", siginfo.si_status);
+        exit_code = 128 + siginfo.si_status;
     } else if (siginfo.si_code == CLD_EXITED) {
         if (siginfo.si_status == 127) {
             ns_log("northstar failed to start");
         } else {
             ns_log("northstar exited with status %d", siginfo.si_status);
         }
+        exit_code = siginfo.si_status;
     } else if (siginfo.si_code == CLD_DUMPED) {
         ns_log("northstar dumped core");
+        exit_code = 128 + siginfo.si_status;
     }
 
     // kill xvfb if it's still running
@@ -1390,18 +1399,19 @@ cleanup:
     for (;;) {
         switch (waitpid(-1, NULL, WNOHANG)) {
         case -1:
-            if (errno != EINTR) {
-                if (errno != ECHILD) {
-                    ns_perror("error: failed to reap remaining children to exit");
-                }
+            if (errno == EINTR) {
+                continue; // try again immediately
+            }
+            if (errno != ECHILD) {
+                ns_perror("error: failed to reap remaining children to exit");
                 return 1;
             }
-            continue; // try again immediately
+            return exit_code;
         case 0:
             clock_gettime(CLOCK_MONOTONIC, &tc);
             if (tc.tv_sec - ts.tv_sec > 4) {
                 ns_log("warning: children did not exit in time");
-                return 1;
+                return exit_code;
             }
             break; // no children to wait for
         default:
