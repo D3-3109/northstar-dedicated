@@ -29,8 +29,16 @@ build() {
 		x86) _no_pie="-no-pie";;
 	esac
 	export CROSSCFLAGS="${CROSSCFLAGS:--g -O2} -D__MSVCRT_VERSION__=0x700"
-	# Pruning is limited to the field-proven Wine 7 list, minus the entries whose
-	# dependants are still built. Going beyond it broke masterserver registration.
+	# This disable list is the field-proven Wine 7 list, adapted for Wine 11:
+	# minus the entries whose dependants are built in Wine 11 (new import edges
+	# in 11.x: cfgmgr32, netutils, ncrypt, ...), and minus options that no
+	# longer exist as configure options in Wine 11 (api-ms/ext-ms stubs, xml2/xslt,
+	# msxml5; wow64* remain but default to disabled without --enable-archs).
+	# Going beyond this list broke masterserver registration in runtime tests;
+	# any further pruning must be regenerated from a runtime trace, not by
+	# extending this list blindly. (The proven list itself keeps a few latent
+	# exceptions — mfplat/winegstreamer/bluetoothapis stay disabled while their
+	# dependants are built; nothing on the server path loads them.)
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
@@ -120,10 +128,10 @@ build() {
 		--disable-iccvid --disable-icmp --disable-ieframe --disable-ieproxy --disable-inetcomm --disable-inetcpl_cpl --disable-inetmib1 \
 		--disable-infosoft --disable-initpki --disable-inkobj --disable-inseng --disable-iprop --disable-irprops_cpl --disable-itircl \
 		--disable-itss --disable-joy_cpl --disable-jscript --disable-jsproxy --disable-ksproxy_ax --disable-ksuser --disable-ktmw32 \
-		--disable-l3codeca --disable-loadperf --disable-localspl --disable-localui --disable-lz32 --disable-mapi32 --disable-mapistub \
+		--disable-l3codeca.acm --disable-loadperf --disable-localspl --disable-localui --disable-lz32 --disable-mapi32 --disable-mapistub \
 		--disable-mciavi32 --disable-mcicda --disable-mciqtz32 --disable-mciseq --disable-mciwave --disable-mf --disable-mf3216 \
 		--disable-mferror --disable-mfmediaengine --disable-mfplat --disable-mfplay --disable-mfreadwrite --disable-mgmtapi \
-		--disable-midimap --disable-mmcndmgr --disable-mp3dmod --disable-msado15 --disable-msadp32 --disable-msasn1 --disable-mscat32 \
+		--disable-midimap --disable-mmcndmgr --disable-mp3dmod --disable-msado15 --disable-msadp32.acm --disable-msasn1 --disable-mscat32 \
 		--disable-mscms --disable-mscoree --disable-mscorwks --disable-msctfmonitor --disable-msctfp --disable-msdaps --disable-msdasql \
 		--disable-msdelta --disable-msdrm --disable-msftedit --disable-mshtml --disable-mshtml_tlb --disable-msi --disable-msident \
 		--disable-msimsg --disable-msimtf --disable-msisys_ocx --disable-msls31 --disable-msnet32 --disable-mspatcha \
@@ -140,12 +148,12 @@ build() {
 		--disable-qasf --disable-qdvd --disable-qmgr --disable-qmgrprxy --disable-quartz --disable-query --disable-qwave \
 		--disable-rasapi32 --disable-rasdlg --disable-resutils --disable-riched20 --disable-riched32 --disable-rsabase --disable-rstrtmgr \
 		--disable-rtutils --disable-rtworkq --disable-samlib --disable-sane_ds --disable-sapi --disable-sas --disable-scarddlg \
-		--disable-sccbase --disable-schedsvc --disable-scrobj --disable-scrrun --disable-scsiport --disable-security --disable-sensapi \
+		--disable-sccbase --disable-schedsvc --disable-scrobj --disable-scrrun --disable-scsiport.sys --disable-security --disable-sensapi \
 		--disable-serialui --disable-sfc --disable-sfc_os --disable-shdoclc --disable-shfolder --disable-slbcsp --disable-slc \
 		--disable-snmpapi --disable-softpub --disable-spoolss --disable-sppc --disable-srclient --disable-srvcli --disable-sspicli \
 		--disable-stdole32_tlb --disable-sti --disable-strmdll --disable-svrapi --disable-sxs --disable-t2embed \
 		--disable-tapi32 --disable-taskschd --disable-tbs --disable-tdh --disable-traffic --disable-twain_32 --disable-uianimation \
-		--disable-uiautomationcore --disable-uiribbon --disable-unicows --disable-updspapi --disable-url --disable-usbd --disable-usp10 \
+		--disable-uiautomationcore --disable-uiribbon --disable-unicows --disable-updspapi --disable-url --disable-usbd.sys --disable-usp10 \
 		--disable-utildll --disable-vbscript --disable-vcomp --disable-vcomp100 --disable-vcomp110 --disable-vcomp120 --disable-vcomp140 \
 		--disable-vcomp90 --disable-vdmdbg --disable-vga --disable-virtdisk --disable-vssapi --disable-vulkan_1 --disable-wdscore \
 		--disable-webservices --disable-websocket --disable-wer --disable-wevtapi --disable-wiaservc --disable-wimgapi \
@@ -161,12 +169,10 @@ build() {
 		--disable-xactengine3_4 --disable-xactengine3_5 --disable-xactengine3_6 --disable-xactengine3_7 --disable-xapofx1_1 \
 		--disable-xapofx1_2 --disable-xapofx1_3 --disable-xapofx1_4 --disable-xapofx1_5 --disable-xaudio2_0 --disable-xaudio2_1 \
 		--disable-xaudio2_2 --disable-xaudio2_3 --disable-xaudio2_4 --disable-xaudio2_5 --disable-xaudio2_6 --disable-xaudio2_7 \
-		--disable-xaudio2_8 --disable-xaudio2_9 --disable-xinput1_1 --disable-xinput1_2 --disable-xml2 --disable-xmllite --disable-xolehlp \
-		--disable-xpsprint --disable-xpssvcs --disable-xslt
+		--disable-xaudio2_8 --disable-xaudio2_9 --disable-xinput1_1 --disable-xinput1_2 --disable-xmllite --disable-xolehlp \
+		--disable-xpsprint --disable-xpssvcs
 
 	make LDFLAGS="$LDFLAGS $_no_pie" \
-		tools/widl/widl \
-		tools/winebuild/winebuild \
 		tools/widl/widl \
 		tools/winebuild/winebuild \
 		tools/winegcc/winegcc \
@@ -177,8 +183,9 @@ build() {
 package() {
 	make DESTDIR="$pkgdir" install
 
-	# ICU data is only used by icuuc/icuin, which are disabled. Keep every c_*.nls:
-	# dropping code pages hangs wineboot --init during fake dll registration.
+	# icudtl.dat is inert in Wine 11 (nothing loads it; ICU data is compiled into
+	# the bundled ICU), so dropping it saves ~30MB. Keep every c_*.nls: dropping
+	# code pages hangs wineboot --init during fake dll registration.
 	rm -f "$pkgdir"/usr/share/wine/nls/icudtl.dat
 
 	find "$pkgdir"/usr/lib/wine/x86_64-windows -type f \

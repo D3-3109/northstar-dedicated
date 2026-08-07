@@ -994,9 +994,11 @@ int main(int argc, char **argv) {
         ns_log("warning: WINEDEBUG has been overridden to '%s' (replacing the recommended value '%s')", getenv("WINEDEBUG"), WINEDEBUG_DEFAULT);
     }
 
-    if (!getenv("DISPLAY")) {
-        ns_log("warning: no X server running");
-        ns_log("note: Xvfb is sufficient as long as you're using pg9182's d3d11 and gfsdk stubs");
+    const char *display = getenv("DISPLAY");
+    if (!display || !*display) {
+        ns_log("error: DISPLAY is not set");
+        ns_log("note: an X server is required; set DISPLAY to an existing display, or to \"xvfb\" to have nswrap start one automatically");
+        return 1;
     }
 
     if (np < NS_REQUIRED_CORES) {
@@ -1096,7 +1098,7 @@ int main(int argc, char **argv) {
     }
 
     pid_t xvfb_pid = -1;
-    if (getenv("DISPLAY") && !strcmp(getenv("DISPLAY"), "xvfb")) {
+    if (!strcmp(display, "xvfb")) {
         ns_log("starting xvfb");
 
         char buf[256];
@@ -1148,8 +1150,22 @@ int main(int argc, char **argv) {
 
     int fd_pty_slave = ns_ioproc_output_pty(&st_ioproc);
 
+    // block signals before forking so no SIGCHLD/SIGTERM/SIGINT can act with
+    // default disposition in the window around fork (the mask was previously
+    // applied only after fork in the parent); the child must unblock before
+    // exec (the signal mask survives execve)
+    if (sigprocmask(SIG_BLOCK, &mask, NULL) == -1) {
+        ns_perror("error: failed to register signal handlers: mask signals");
+        return 1;
+    }
+
     pid_t wine_pid = fork();
+    if (wine_pid == -1) {
+        ns_perror("error: failed to fork wine");
+        return 1;
+    }
     if (!wine_pid) {
+        sigprocmask(SIG_UNBLOCK, &mask, NULL);
         setsid();
         ioctl(fd_pty_slave, TIOCSCTTY, 0);
         dup2(fd_pty_slave, 0);
@@ -1162,12 +1178,6 @@ int main(int argc, char **argv) {
         write(fd_pipe_errno[1], &n, sizeof(n));
         close(fd_pipe_errno[1]);
         _exit(127);
-    }
-
-    if (sigprocmask(SIG_BLOCK, &mask, NULL) == -1) {
-        ns_perror("error: failed to register signal handlers: mask signals");
-        kill(wine_pid, SIGKILL);
-        return 1;
     }
 
     const char *nswrap_title = getenv("NSWRAP_TITLE");

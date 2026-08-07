@@ -17,10 +17,13 @@ import (
 )
 
 func main() {
+	os.Exit(run())
+}
+
+func run() int {
 	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
 		fmt.Fprintf(os.Stderr, "Unsupported platform %s/%s.\n", runtime.GOOS, runtime.GOARCH)
-		os.Exit(1)
-		return
+		return 1
 	}
 
 	hostname, err := os.Hostname()
@@ -72,8 +75,7 @@ func main() {
 	)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: Failed to merge game files: %v.\n", err)
-		os.Exit(1)
-		return
+		return 1
 	}
 	defer nso.Delete()
 	fmt.Println()
@@ -83,12 +85,10 @@ func main() {
 	if v, ok := os.LookupEnv("NS_PORT"); ok {
 		if n, err := strconv.ParseInt(v, 10, 64); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: Invalid port %q.\n", v)
-			os.Exit(1)
-			return
+			return 1
 		} else if n < 1 || n > 65535 {
 			fmt.Fprintf(os.Stderr, "Error: Invalid port %q: out of range.\n", v)
-			os.Exit(1)
-			return
+			return 1
 		} else {
 			port = v
 		}
@@ -96,8 +96,7 @@ func main() {
 	as, err := shellquote.Split(os.Getenv("NS_EXTRA_ARGUMENTS"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: Failed to split extra arguments %#q: %v.\n", os.Getenv("NS_EXTRA_ARGUMENTS"), err)
-		os.Exit(1)
-		return
+		return 1
 	}
 	nsc := MergeConfig(
 		map[string]string{
@@ -146,8 +145,7 @@ func main() {
 				fmt.Fprintf(os.Stderr, "           %s (%q) - %v\n", c, v, err)
 			}
 		}
-		os.Exit(2)
-		return
+		return 2
 	}
 
 	fmt.Println()
@@ -158,13 +156,11 @@ func main() {
 	args, err := nsc.Autoexec(&buf)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: generate autoexec: %v.\n", err)
-		os.Exit(1)
-		return
+		return 1
 	}
 	if err := os.WriteFile(nso.Autoexec(), buf.Bytes(), 0644); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: write autoexec: %v.\n", err)
-		os.Exit(1)
-		return
+		return 1
 	}
 
 	fmt.Println("Starting Northstar...")
@@ -199,12 +195,12 @@ func main() {
 	if err != nil {
 		var ex *exec.ExitError
 		if errors.As(err, &ex) {
-			os.Exit(ex.ExitCode())
-			return
+			return ex.ExitCode()
 		}
 		fmt.Fprintf(os.Stderr, "Error: Failed to run northstar: %v.\n", err)
-		os.Exit(1)
+		return 1
 	}
+	return 0
 }
 
 func env(preserve []string, override ...string) []string {
@@ -214,11 +210,6 @@ func env(preserve []string, override ...string) []string {
 	}
 	for _, x := range os.Environ() {
 		spl := strings.SplitN(x, "=", 2)
-		for i := 0; i < len(override); i += 2 {
-			if override[i] == spl[0] {
-				continue
-			}
-		}
 		for _, p := range preserve {
 			if spl[0] == p {
 				r = append(r, x)

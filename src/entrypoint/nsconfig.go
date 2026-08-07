@@ -188,8 +188,8 @@ func (n *NSConfig) Validate() map[string][]error {
 
 	for _, c := range cx {
 		v := n.cv[c]
-		if strings.ContainsAny(v, "\"") {
-			errs[c] = append(errs[c], fmt.Errorf("invalid value: must not contain double quotes"))
+		if strings.ContainsAny(v, "\"\r\n") {
+			errs[c] = append(errs[c], fmt.Errorf("invalid value: must not contain double quotes or newlines"))
 		}
 		switch c {
 		case "ns_server_name", "ns_server_desc", "ns_server_password":

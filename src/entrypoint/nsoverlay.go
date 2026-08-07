@@ -171,7 +171,7 @@ func (n *NSOverlay) mergeNavs(p string) error {
 
 func (n *NSOverlay) mergePlugins(p string) error {
 	// note: sorted lexically
-	if err := os.MkdirAll(filepath.Join(n.Path, "R2Northstar", "plugins"), 0644); err != nil {
+	if err := os.MkdirAll(filepath.Join(n.Path, "R2Northstar", "plugins"), 0777); err != nil {
 		return err
 	}
 	return filepath.Walk(p, func(path string, info fs.FileInfo, err error) error {
